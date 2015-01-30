@@ -1,0 +1,24 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+$setup = <<SCRIPT
+    DEBIAN_FRONTEND=noninteractive apt-get update
+SCRIPT
+
+$dependencies = <<SCRIPT
+    DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential python python-dev python-setuptools python-pip
+    DEBIAN_FRONTEND=noninteractive apt-get install -y python-virtualenv virtualenvwrapper
+    DEBIAN_FRONTEND=noninteractive apt-get install -y node-less
+    DEBIAN_FRONTEND=noninteractive pip install -r /vagrant/requirements/dev.txt
+SCRIPT
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.host_name = "{{cookiecutter.repo_name}}"
+  config.vm.network "forwarded_port", guest: 8000, host: 80
+  config.ssh.forward_agent = true
+  config.vm.provision "shell", inline: $setup
+  config.vm.provision "shell", inline: $dependencies
+end

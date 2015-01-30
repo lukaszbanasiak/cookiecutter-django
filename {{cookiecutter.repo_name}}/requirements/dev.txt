@@ -1,0 +1,9 @@
+# Local development dependencies go here
+-r base.txt
+coverage==3.7.1
+Sphinx
+django-devserver
+sqlparse
+werkzeug
+guppy
+django-debug-toolbar==1.2.2
