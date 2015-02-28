@@ -47,7 +47,7 @@
     </div>
     <footer class="footer">
       <div class="container">
-        <p>&copy; {% now "Y" %} {{ cookiecutter.project_name }}</p>
+        <p>&copy; {% now "Y" %} {% endraw %}{{ cookiecutter.project_name }}{% raw %}</p>
       </div>
     </footer>
     {% block js %}
